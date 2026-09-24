@@ -10,7 +10,8 @@ In addition, you also need to install the 'autoattack' package: `pip install git
 First, copy the repository. Then simply run `eval_all_RAMP.py` for the evaluation to start in an environment that has all the prerequisites. The following switch arguments can be used:
 ```
 --model_name <PATH_TO_MODEL> : The path to the model you want to evaluate. Can be relative and absolute.
---data_dir <PATH_TO_DATABASE> : The path to the database you want to test it on, specified by *--dataset*. Can be relative and absolute. Also, if it does not find the database on said path, the script will automatically attempt to download it.
+--data_dir <PATH_TO_DATABASE> : The path to the database you want to test it on, specified by --dataset.
+        Can be relative and absolute. Also, if it does not find the database on said path, the script will automatically attempt to download it.
 --dataset <cifar10/cifar100/imagenet> : The selected database. Currently, only three are supported.
 --run_border : *OPTIONAL* It will run the attack called 'borderattack', and evaluates it.
 --run_border_inner: *OPTIONAL* It will run the attack called 'borderattack_inner' and evaluates it.
