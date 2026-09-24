@@ -31,7 +31,7 @@ As a result, we get a very thorough check on the model's multinorm performance b
 
 After each part, the script automatically calculates the 'union accuracy' (or robust accuracy) of the model using a bitmask. Depending on the database, the bitmask's size is the same as the used database's test pool size (for example, on cifar10 its 10000). Its working principle is very simple, they represent image indices.
 
-For example, if under *ANY* attack, the image on the first index fails to be classified in the correct class, it will permanently be changed from a 1 to a 0. This will not be reset after the first attack, it will be carried over for the next attack until the script ends and there are no more attacks remaining. Before the script ends, it will check how many 1's remain, and will calculate the union accuracy based on that.
+For example, if under *ANY* attack, the image on the first index fails to be classified to the correct class, it will permanently be changed from a 1 to a 0. This will not be reset after the first attack, it will be carried over for the next attack until the script ends and there are no more attacks remaining. Before the script ends, it will check how many 1's remain, and will calculate the union accuracy based on that.
 
 This is what gives us our most important metric, since the only 1's remaining in the bitmask represent that neither of the six attacks could fool your network with their perturbations to misclassify the image on said index.
 
