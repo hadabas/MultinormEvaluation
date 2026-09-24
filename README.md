@@ -29,7 +29,7 @@ As a result, we get a very thorough check on the model's multinorm performance b
 
 ## Metrics used
 
-After each part, the script automatically calculates the 'union accuracy' of the model using a bitmask. Depending on the database, the bitmask's size is the same as the used database's test pool size (for example, on cifar10 its 10000). Its working principle is very simple, they represent image indices.
+After each part, the script automatically calculates the 'union accuracy' (or robust accuracy) of the model using a bitmask. Depending on the database, the bitmask's size is the same as the used database's test pool size (for example, on cifar10 its 10000). Its working principle is very simple, they represent image indices.
 
 For example, if under *ANY* attack, the image on the first index fails to be classified in the correct class, it will permanently be changed from a 1 to a 0. This will not be reset after the first attack, it will be carried over for the next attack until the script ends and there are no more attacks remaining. Before the script ends, it will check how many 1's remain, and will calculate the union accuracy based on that.
 
@@ -37,3 +37,16 @@ This is what gives us our most important metric, since the only 1's remaining in
 
 In addition, the script also calculates how well your model did on each attack alone, regardless of all the previous other attacks.
 
+Also, there are partial results recorded for union/robust accuracy after each type of attack, this can be read at the end of the result under "UNION SUMMARY". With these results, you can check which type of attack decreased your model's union accuracy the most.
+
+# 4. An example
+
+Since any model can be loaded which is torch compatible, in the example script we have used a famous model that is Linf, L2 and L1 robust at once. (Or as it is described in their [paper](https://arxiv.org/abs/2402.06827), it tries to maximize union accuracy across these 3 attacks.)
+
+I have trained a model based on their instructions in their [GitHub codebase](https://github.com/uiuc-focal-lab/RAMP), then after the training was done, I have used the following command:
+
+`python ./eval_all_RAMP.py --model_name RAMP_model_ep_80_0.pth -data_dir ../Databases/cifar10 --dataset cifar10 --run_border --run_border_inner`
+
+to evaluate the trained model.
+
+You can check the results in the ramp_result.log file.
